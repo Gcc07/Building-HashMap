@@ -33,7 +33,19 @@ public class MyHashMap<K, V> {
     }
 
     // ── put ───────────────────────────────────────────────────────────────
+
+    // Put method compares keys with .equals() instead of == because == compares objects in memory location, whereas
+    // .equals() compares the actual object data. For example, for a string, the string values are compared, rather than
+    // memory location.
+
+    // Remove additionally uses Iterator instead of a for-each loop because modifying a linked-list inside of a for-each
+    // loop causes a concurrent modification error, which is an issue fixed by the functionality of an iterator object.
+
     public V put(K key, V value) {
+        if (key == null) {
+            return null;
+        }
+
         int index = hash(key);
         if( table[index] == null) {
             table[index] = new LinkedList<Entry<K,V>>();
@@ -53,6 +65,9 @@ public class MyHashMap<K, V> {
 
     // ── get ───────────────────────────────────────────────────────────────
     public V get(K key) {
+        if (key == null) {
+            return null;
+        }
         int index = hash(key);
         if (table[index] == null) {
             return null;
@@ -68,6 +83,9 @@ public class MyHashMap<K, V> {
 
     // ── containsKey ───────────────────────────────────────────────────────
     public boolean containsKey(K key) {
+        if (key == null) {
+            return false;
+        }
         int index = hash(key);
         for (Entry<K,V> entry : table[index]) {
             if (entry.key.equals(key)) {
@@ -80,22 +98,22 @@ public class MyHashMap<K, V> {
 
     // ── remove ────────────────────────────────────────────────────────────
     public V remove(K key) {
-        // TODO Step 1: compute the index using hash(key)
+        if (key == null) {
+            return null;
+        }
         int index = hash(key);
-        // TODO Step 2: if table[index] is null, return null (nothing to remove)
         if (table[index] == null) {
             return null;
         }
-        // TODO Step 3: walk the list at table[index]
         Iterator<Entry<K,V>> it = table[index].iterator();
         while (it.hasNext()) {
-            if (it.equals(key)) {
-                V value = it.next().value;
+            Entry<K,V> entry = it.next();
+            if (entry.key.equals(key)) {
+                V oldValue = entry.value;
                 size--;
                 it.remove();
-                return it.;
+                return oldValue;
             }
-            it.next();
         }
         //   -- compare keys using .equals(), not ==
         //   -- if an entry with a matching key is found:
@@ -104,9 +122,7 @@ public class MyHashMap<K, V> {
         //      Use an iterator: Iterator<Entry<K,V>> it = table[index].iterator()
         //      then it.remove() when you find the match.
 
-        // TODO Step 4: key was not found -- return null
-
-        return null; // replace this
+        return null; 
     }
 
     // ── size ──────────────────────────────────────────────────────────────
