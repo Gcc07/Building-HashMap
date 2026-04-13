@@ -1,6 +1,17 @@
+/**
+ * Gabriel Cardenas
+ * Course: ADV Java
+ * Date: 4/10/26
+ *
+ * This is an example implementation of a HashMap, which is a data structure that stores data in key value pairs
+ * mapping items through a hash function.
+ */
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/** 
+ * Class that holds key value pairs
+ */
 public class MyHashMap<K, V> {
 
     // ── Inner entry class ─────────────────────────────────────────────────
@@ -21,12 +32,21 @@ public class MyHashMap<K, V> {
 
     // ── Constructor ───────────────────────────────────────────────────────
     @SuppressWarnings("unchecked")
+    /**
+     * Creates a generic hashmap, using buckets with linked list to avoid collisions.
+     */
     public MyHashMap() {
         table = new LinkedList[DEFAULT_CAPACITY];
         size  = 0;
     }
 
     // ── Hash helper ───────────────────────────────────────────────────────
+    /**
+     * Returns hashcode key.
+     * 
+     * @param key the key to hash
+     * @return the hashcode index for the table
+     */
     private int hash(K key) {
         // Keys must not be null
         return Math.abs(key.hashCode()) % table.length;
@@ -41,6 +61,13 @@ public class MyHashMap<K, V> {
     // Remove additionally uses Iterator instead of a for-each loop because modifying a linked-list inside of a for-each
     // loop causes a concurrent modification error, which is an issue fixed by the functionality of an iterator object.
 
+    /**
+     * Puts a value in a bucket based off of a key and value.
+     * 
+     * @param key the key to insert or update
+     * @param value the value to associate with the key
+     * @return The previous value that was associated with the key, or null if no value exists.
+     */
     public V put(K key, V value) {
         if (key == null) {
             return null;
@@ -115,13 +142,6 @@ public class MyHashMap<K, V> {
                 return oldValue;
             }
         }
-        //   -- compare keys using .equals(), not ==
-        //   -- if an entry with a matching key is found:
-        //      remove it from the list, decrement size, return its value
-        //   -- You cannot remove from a list inside a for-each loop.
-        //      Use an iterator: Iterator<Entry<K,V>> it = table[index].iterator()
-        //      then it.remove() when you find the match.
-
         return null; 
     }
 
