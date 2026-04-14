@@ -99,7 +99,7 @@ public class MyHashMap<K, V> {
     /**
      * Gets a value in a bucket based off of a provided key.
      * 
-     * @param key the key to insert or update
+     * @param key the key you are looking for
      * @return The value that is associated with the key, or null if no value exists.
      */
     public V get(K key) {
@@ -116,14 +116,13 @@ public class MyHashMap<K, V> {
                 return entry.value;
             }
         }
-        return null; // replace this
-    }
+        return null; 
 
     // ── containsKey ───────────────────────────────────────────────────────
-    /**
+    /**f
      * Checks if a value is in a bucket based off of a provided key
      * 
-     * @param key the key to insert or update
+     * @param key the key you are checking if it exists
      * @return true if the key has an associated value, false if not.
      */
     public boolean containsKey(K key) {
@@ -181,7 +180,7 @@ public class MyHashMap<K, V> {
     // ── isEmpty ───────────────────────────────────────────────────────────
     /** 
      * Returns true or false depending on the emptiness of the map
-     * @return false if hashmap is empty, true if not.
+     * @return true if hashmap is empty, false if not.
      */
     public boolean isEmpty() {
         return size == 0;
