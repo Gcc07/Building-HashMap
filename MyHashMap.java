@@ -117,13 +117,14 @@ public class MyHashMap<K, V> {
             }
         }
         return null; 
-
-    // ── containsKey ───────────────────────────────────────────────────────
-    /**f
+    }
+    // ── containsKey ───────────────────────────────────────────────────────/
+    /**
      * Checks if a value is in a bucket based off of a provided key
      * 
      * @param key the key you are checking if it exists
      * @return true if the key has an associated value, false if not.
+     * 
      */
     public boolean containsKey(K key) {
         if (key == null) {
