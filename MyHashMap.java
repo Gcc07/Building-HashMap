@@ -1,7 +1,7 @@
 /**
  * Gabriel Cardenas
  * Course: ADV Java
- * Date: 4/10/26
+ * Date: 04/10/2026
  *
  * This is an example implementation of a HashMap, which is a data structure that stores data in key value pairs
  * mapping items through a hash function.
@@ -10,11 +10,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /** 
- * Class that holds key value pairs
+ * Represents a generic hashmap implementation that allows for collisions through chaining (linked lists.)
+ * Supports operations such as put, delete, and get.
  */
 public class MyHashMap<K, V> {
 
     // ── Inner entry class ─────────────────────────────────────────────────
+    /**
+    * Defines the entry class which stores key value pairs.
+    */
     static class Entry<K, V> {
         K key;
         V value;
@@ -30,11 +34,11 @@ public class MyHashMap<K, V> {
     private int size;
     private static final int DEFAULT_CAPACITY = 11;
 
-    // ── Constructor ───────────────────────────────────────────────────────
-    @SuppressWarnings("unchecked")
+    // ── Constructor ───────────────────────────────────────────────────────\
     /**
-     * Creates a generic hashmap, using buckets with linked list to avoid collisions.
+     * Creates a generic hashmap, (Default size of 11) using buckets as linked list to avoid collisions.
      */
+    @SuppressWarnings("unchecked")
     public MyHashMap() {
         table = new LinkedList[DEFAULT_CAPACITY];
         size  = 0;
@@ -62,7 +66,8 @@ public class MyHashMap<K, V> {
     // loop causes a concurrent modification error, which is an issue fixed by the functionality of an iterator object.
 
     /**
-     * Puts a value in a bucket based off of a key and value.
+     * Puts a value in a bucket (with collision functionality) based off of a key and value.
+     * Replaces old value if existing.
      * 
      * @param key the key to insert or update
      * @param value the value to associate with the key
@@ -91,6 +96,12 @@ public class MyHashMap<K, V> {
     }
 
     // ── get ───────────────────────────────────────────────────────────────
+    /**
+     * Gets a value in a bucket based off of a provided key.
+     * 
+     * @param key the key to insert or update
+     * @return The value that is associated with the key, or null if no value exists.
+     */
     public V get(K key) {
         if (key == null) {
             return null;
@@ -109,6 +120,12 @@ public class MyHashMap<K, V> {
     }
 
     // ── containsKey ───────────────────────────────────────────────────────
+    /**
+     * Checks if a value is in a bucket based off of a provided key
+     * 
+     * @param key the key to insert or update
+     * @return true if the key has an associated value, false if not.
+     */
     public boolean containsKey(K key) {
         if (key == null) {
             return false;
@@ -124,6 +141,13 @@ public class MyHashMap<K, V> {
     }
 
     // ── remove ────────────────────────────────────────────────────────────
+    /**
+     * Removes a value in a bucket based off of a key.
+     * Returns null if no such key exists.
+     * 
+     * @param key the key to remove.
+     * @return The previous value that was associated with the key, or null if no value exists.
+     */
     public V remove(K key) {
         if (key == null) {
             return null;
@@ -146,16 +170,28 @@ public class MyHashMap<K, V> {
     }
 
     // ── size ──────────────────────────────────────────────────────────────
+    /** 
+     * Returns the size of the hashmap
+     * @return the size of the hashmap
+     */
     public int size() {
         return size;
     }
 
     // ── isEmpty ───────────────────────────────────────────────────────────
+    /** 
+     * Returns true or false depending on the emptiness of the map
+     * @return false if hashmap is empty, true if not.
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
     // ── Test driver ───────────────────────────────────────────────────────
+    /** 
+     * Tests the functionality of the hashmap using storage retrieval and update functions.
+     * @param args command-line arguments (unused)
+     */
     public static void main(String[] args) {
         MyHashMap<String, Integer> map = new MyHashMap<>();
 
